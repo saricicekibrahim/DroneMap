@@ -1,1 +1,2 @@
-dronemap
+npm install
+bower install
