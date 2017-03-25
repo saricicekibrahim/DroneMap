@@ -17,7 +17,6 @@
   "dependencies": {
     "angular": "angularjs#^1.6.3",
     "bootstrap": "^3.3.7",
-    "sidebar-v2": "^0.3.1",
     "font-awesome": "fontawesome#^4.7.0",
     "bootstrap-sidebar": "^0.2.2"
   }
