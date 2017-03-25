@@ -1,5 +1,4 @@
-var app = angular.module('droneApp', []);
-app.controller('droneCtrl', function($scope, $http, $sce) {
+var app = angular.module('droneApp', []).controller('droneCtrl',['$scope', '$http', '$sce', function($scope, $http, $sce) {
 			//https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1MIt8HjHPRe4_rifTaAwpK72vJ6c-oJdoa5c8Ryd7 where descriptor like 'Ankara%25' limit 5&key=AIzaSyCrjxOUtz0PEtDh9tDn6sjzObkC9dqQ1oA
 			var container = document.getElementById('popup');
 			var content = document.getElementById('popup-content');
@@ -113,4 +112,4 @@ app.controller('droneCtrl', function($scope, $http, $sce) {
 			});
 			
 			//});
-		});
+		}]);
