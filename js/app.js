@@ -46,8 +46,7 @@ var app = angular.module('droneApp', []).controller('droneCtrl',['$scope', '$htt
 					source : new ol.source.OSM()
 				})],
 				view : new ol.View({
-					center : ol.proj.transform([ 32.9, 39.9 ], 'EPSG:4326',
-						'EPSG:3857'),
+					center : ol.proj.transform([ 32.9, 39.9 ], 'EPSG:4326', 'EPSG:3857'),
 					zoom : 10
 				}),
 				overlays: [overlay]
@@ -58,9 +57,6 @@ var app = angular.module('droneApp', []).controller('droneCtrl',['$scope', '$htt
 			.then(function(response) {
 				$scope.fusionData = response.data.rows;
 				$scope.features = [];
-				// 			$scope.fusionData = [
-				// 				[ "1", "32.9, 39.9", "Q3YtHNH1duo", "Ankara Üniversitesi" ],
-				// 				[ "2", "32.7, 39.8", "8ZuftjyKzoI", "Ankara sit." ] ];
 				angular.forEach($scope.fusionData, function(value, key) {
 					var latLon = value[1].split(",");
 					$scope.features.push(new ol.Feature({
@@ -106,7 +102,7 @@ var app = angular.module('droneApp', []).controller('droneCtrl',['$scope', '$htt
 					
 					var coordinate = evt.coordinate;
 
-					content.innerHTML = feature.get('descr') + "<iframe width='250' height='250' src='https://www.youtube.com/embed/" + feature.get('youtube_id') + "' frameborder='0' allowfullscreen></iframe>";
+					content.innerHTML = feature.get('descr') + "<iframe width='350' height='250' src='https://www.youtube.com/embed/" + feature.get('youtube_id') + "' frameborder='0' allowfullscreen></iframe>";
 					overlay.setPosition(coordinate);
 				}
 				else{

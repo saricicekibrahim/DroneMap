@@ -33,6 +33,10 @@
 		.container-fluid {
 			background-color: black;
 		}
+		
+		.gray-back {
+		background-color: gray;
+		}
 
 		h3 {
 			color: white;
@@ -43,7 +47,7 @@
 			background: gray;
 			padding: 1px;
 			padding-left:6px; 
-			margin-bottom: 1px;
+			margin-bottom: 7px;
 		}
 		
 		.ol-popup {
