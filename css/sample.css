@@ -107,3 +107,7 @@ a{
     height:30px;
     padding-top: 7px;
 }
+
+.btn-link {
+    color: #343b41;
+}

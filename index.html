@@ -38,16 +38,15 @@
 				<div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate">
 					<input ng-model="videoFilter.search" class="form-control" ng-model="searchValue" type="text" placeholder="Ara"> <br>
 					<div ng-repeat="data in fusionData | filter:videoFilter.search" class="rcorners">
-<!-- 						<div class="row"> -->
-<!-- 							<div class="col-sm-9"> -->
+						<div class="row">
+							<div class="col-sm-1">
+								<button type="button" class="btn btn-link">
+									<i class="fa fa-search-plus"></i>
+							</div>
+							<div class="col-sm-11">
 								<h5>{{data[3]}}</h5>
-<!-- 							</div> -->
-<!-- 							<div class="col-sm-3"> -->
-<!-- 								<button type="button" style="margin-top: 8px;" class="btn btn-default"> -->
-<!-- 									<i class="fa fa-search-plus"></i> -->
-<!-- 								</button> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
+							</div>
+						</div>
 						<ul class="nav navbar-stacked">
 							<iframe width="100%" height="315" ng-src="{{getIframeSrc(data[2])}}" frameborder="0" allowfullscreen></iframe>
 						</ul>
