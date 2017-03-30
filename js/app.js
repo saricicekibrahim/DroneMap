@@ -36,18 +36,24 @@ var app = angular.module('droneApp', []).controller('droneCtrl',['$scope', '$htt
 			+ src);
 	};
 	
+	$scope.view = new ol.View({
+		center : ol.proj.transform([ 32.9, 39.9 ], 'EPSG:4326', 'EPSG:3857'),
+		zoom : 10
+	});
+	
 	$scope.map = new ol.Map({
         interactions: ol.interaction.defaults().extend([
             new ol.interaction.DragRotateAndZoom()
           ]),
 		target : 'map',
 		layers : [ new ol.layer.Tile({
-			source : new ol.source.OSM()
-		})],
-		view : new ol.View({
-			center : ol.proj.transform([ 32.9, 39.9 ], 'EPSG:4326', 'EPSG:3857'),
-			zoom : 10
-		}),
+		      source: new ol.source.XYZ({
+		          
+		          url: 'https://tile-{a-c}.openstreetmap.fr/hot/{z}/{x}/{y}.png'
+		        }),
+		        name: 'Humanitarian'
+		      })],
+		view : $scope.view,
 		overlays: [overlay]
 	});
 	$scope.videoLayer = null;
@@ -87,6 +93,19 @@ var app = angular.module('droneApp', []).controller('droneCtrl',['$scope', '$htt
 	});
 	
 	var element = document.getElementById('popup');
+
+    function elastic(t) {
+        return Math.pow(2, -10 * t) * Math.sin((t - 0.075) * (2 * Math.PI) / 0.3) + 1;
+      }
+    
+    $scope.zoomToVideo = function(argCoordinate)
+    {
+    	$scope.view.animate({
+            center: ol.proj.fromLonLat([parseFloat(argCoordinate.split(",")[1]),parseFloat(argCoordinate.split(",")[0])]),
+            duration: 2000,
+            easing: elastic
+          });
+    }
 	
 	$scope.map.on('click', function(evt) {
 		var feature = $scope.map.forEachFeatureAtPixel(evt.pixel,

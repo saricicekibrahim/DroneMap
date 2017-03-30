@@ -18,7 +18,7 @@
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="bower_components/bootstrap-sidebar/dist/js/sidebar.js"></script>
 <script src="node_modules/openlayers/dist/ol.js" type="text/javascript"></script>
-<script src="js/app.min.js" type="text/javascript"></script>
+<script src="js/app.js" type="text/javascript"></script>
 
 </head>
 <body>
@@ -37,10 +37,10 @@
 			<div class="row">
 				<div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate">
 					<input ng-model="videoFilter.search" class="form-control" ng-model="searchValue" type="text" placeholder="Ara"> <br>
-					<div ng-repeat="data in fusionData | filter:videoFilter.search" class="rcorners">
+					<div ng-repeat="data in fusionData | filter:videoFilter.search">
 						<div class="row">
 							<div class="col-sm-1">
-								<button type="button" class="btn btn-link">
+								<button ng-click="zoomToVideo(data[1])" type="button" class="btn btn-link">
 									<i class="fa fa-search-plus"></i>
 							</div>
 							<div class="col-sm-11">
@@ -50,6 +50,7 @@
 						<ul class="nav navbar-stacked">
 							<iframe width="100%" height="315" ng-src="{{getIframeSrc(data[2])}}" frameborder="0" allowfullscreen></iframe>
 						</ul>
+						<hr>
 					</div>
 				</div>
 			</div>

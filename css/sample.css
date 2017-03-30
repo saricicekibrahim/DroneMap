@@ -51,14 +51,6 @@ a{
   color: white;
 }
 
-.rcorners {
-	border-radius: 5px;
-	background: gray;
-	padding: 1px;
-	padding-left:10px; 
-	margin-bottom: 7px;
-}
-
 .ol-popup {
 	position: absolute;
 	background-color: white;
