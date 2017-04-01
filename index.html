@@ -22,7 +22,7 @@
 
 </head>
 <body>
-	<div ng-app="droneApp" ng-controller="droneCtrl">
+	<div ng-app="droneApp">
 		<div class="navbar navbar-static navbar-default navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
@@ -33,11 +33,11 @@
 			</div>
 		</div>
 
-		<div class="container-fluid">
+		<div class="container-fluid" ng-controller="droneCtrl">
 			<div class="row">
 				<div class="col-xs-7 col-sm-3 col-md-3 sidebar sidebar-right sidebar-animate">
-					<input ng-model="videoFilter.search" class="form-control" ng-model="searchValue" type="text" placeholder="Ara"> <br>
-					<div ng-repeat="data in fusionData | filter:videoFilter.search">
+					<input ng-change="filterMap()" ng-model="videoFilter.search" class="form-control" ng-model="searchValue" type="text" placeholder="Ara"> <br>
+					<div ng-repeat="data in (filteredFusionData = (fusionData | filter:videoFilter.search))">
 						<div class="row">
 							<div class="col-sm-1">
 								<button ng-click="zoomToVideo(data[1])" type="button" class="btn btn-link">
@@ -64,8 +64,7 @@
 
 	<div class="footer navbar-fixed-bottom">
 		<div class="row">
-			<div class="col-xs-4">Shift+Drag to rotate and zoom the map around its center.</div>
-
+			<div class="col-xs-4">Shift+Drag ;)</div>
 			<div class="col-xs-7"></div>
 			<div class="col-xs-1">
 				<a href="https://github.com/saricicekibrahim/DroneMap" target="_blank"><i class="fa fa-github"></i> Github</a>
