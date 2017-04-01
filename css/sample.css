@@ -4,10 +4,6 @@ body {
 	overflow: hidden;
 }
 
-html, body, #map {
-	height: 100%;
-}
-
 .map {
 	margin-top: 53px;
 }
@@ -98,6 +94,7 @@ a{
     background-color: black;
     height:30px;
     padding-top: 7px;
+    color:gray;
 }
 
 .btn-link {

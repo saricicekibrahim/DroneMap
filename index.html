@@ -26,7 +26,6 @@
 		<div class="navbar navbar-static navbar-default navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<button type="button" class="navbar-toggle toggle-left hidden-md hidden-lg"></button>
 					<a class="navbar-brand" href="#">IBoss Drone Map</a>
 				</div>
 				<button type="button" class="navbar-toggle toggle-right glyphicon glyphicon-search gray-back" data-toggle="sidebar" data-target=".sidebar-right"></button>
@@ -40,14 +39,14 @@
 					<div ng-repeat="data in (filteredFusionData = (fusionData | filter:videoFilter.search))">
 						<div class="row">
 							<div class="col-sm-1">
-								<button ng-click="zoomToVideo(data[1])" type="button" class="btn btn-link">
-									<i class="fa fa-search-plus"></i>
+								<button ng-click="zoomToVideo(data[1])" type="button" class="btn btn-sm btn-default">
+									<i class="fa fa-search-plus"></i></button>
 							</div>
 							<div class="col-sm-11">
-								<h5>{{data[3]}}</h5>
+								<h5>&nbsp;{{data[3]}}</h5>
 							</div>
 						</div>
-						<ul class="nav navbar-stacked">
+						<ul ng-if="screenBigEnough()" class="nav navbar-stacked">
 							<iframe width="100%" height="315" ng-src="{{getIframeSrc(data[2])}}" frameborder="0" allowfullscreen></iframe>
 						</ul>
 						<hr>
@@ -55,19 +54,22 @@
 				</div>
 			</div>
 		</div>
-		<div id="map" class="map"></div>
 		<div id="popup" class="ol-popup">
 			<a href="#" id="popup-closer" class="ol-popup-closer"></a>
 			<div id="popup-content"></div>
 		</div>
+		<div id="map" style="width: 100%; height: 91%; position:fixed" class="map"></div>
 	</div>
 
 	<div class="footer navbar-fixed-bottom">
 		<div class="row">
 			<div class="col-xs-4">Shift+Drag ;)</div>
-			<div class="col-xs-7"></div>
+			<div class="col-xs-6"></div>
 			<div class="col-xs-1">
-				<a href="https://github.com/saricicekibrahim/DroneMap" target="_blank"><i class="fa fa-github"></i> Github</a>
+				<a style="color: gray;" href="https://www.linkedin.com/in/ibrahimsaricicek/" target="_blank"><i class="fa fa-linkedin"></i> Linkedin</a>
+			</div>
+			<div class="col-xs-1">
+				<a style="color: gray;" href="https://github.com/saricicekibrahim/DroneMap" target="_blank"><i class="fa fa-github"></i> Github</a>
 			</div>
 		</div>
 	</div>

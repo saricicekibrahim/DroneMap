@@ -42,6 +42,7 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 
 	$scope.closePopup = function()
 	{
+		content.innerHTML = null;
 		overlay.setPosition(undefined);
 		closer.blur();
 		return false;
@@ -71,6 +72,11 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 		view : $scope.view,
 		overlays: [overlay]
 	});
+	
+	$scope.screenBigEnough = function()
+	{
+		return $(window).width() > 750;
+	}
 	
 	$scope.videoLayer = null;
 	$scope.videoMapSource = null;
@@ -126,6 +132,18 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
           });
     }
     
+    $scope.getPopupContent = function(argFeature)
+    {
+    	if($scope.screenBigEnough())
+		{
+    		return argFeature.get('descr') + "<iframe width='350' height='250' src='https://www.youtube.com/embed/" + argFeature.get('youtube_id') + "' frameborder='0' allowfullscreen></iframe>";
+		}
+    	else
+		{
+    		return argFeature.get('descr') + "<br><a href='https://www.youtube.com/watch?v=" + argFeature.get('youtube_id') + "' target='_blank'>> Click</a>";
+		}
+    }
+    
     //openlayers works just with float values
     $scope.getLatLonAsArray = function(argLonLatStr)
     {
@@ -139,7 +157,7 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 				return feature;
 			});
 		if (feature) {
-			content.innerHTML = feature.get('descr') + "<iframe width='350' height='250' src='https://www.youtube.com/embed/" + feature.get('youtube_id') + "' frameborder='0' allowfullscreen></iframe>";
+			content.innerHTML = $scope.getPopupContent(feature);
 			overlay.setPosition(evt.coordinate);
 		}
 		else{
@@ -148,20 +166,12 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 	});
 
     $scope.map.on('moveend', function onMoveEnd(evt) {
-//    	if($scope.videoMapSource)
-//    		{
-//    		$scope.features = [];
-//        	$scope.videoMapSource.clear();
-//        	$scope.videoMapSource.addFeatures($scope.features);
-//    		}
-
         var map = evt.map;
         var extent = map.getView().calculateExtent(map.getSize());
         var bottomLeft = ol.proj.transform(ol.extent.getBottomLeft(extent),
             'EPSG:3857', 'EPSG:4326');
         var topRight = ol.proj.transform(ol.extent.getTopRight(extent),
             'EPSG:3857', 'EPSG:4326');
-        console.log(bottomLeft + " - " + topRight);
         
         $scope.fusionData = [];
     	
