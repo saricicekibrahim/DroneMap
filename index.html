@@ -47,7 +47,10 @@
 							</div>
 						</div>
 						<ul ng-if="screenBigEnough()" class="nav navbar-stacked">
-							<iframe width="100%" height="315" ng-src="{{getIframeSrc(data[2])}}" frameborder="0" allowfullscreen></iframe>
+							<iframe width="100%" height="315" ng-src="{{getIframeSrc(data[2],true)}}" frameborder="0" allowfullscreen></iframe>
+						</ul>
+						<ul ng-if="!screenBigEnough()" class="nav navbar-stacked">
+							<a ng-href="{{getIframeSrc(data[2],true)}}" target='_blank'>Click for Video</a>
 						</ul>
 						<hr>
 					</div>

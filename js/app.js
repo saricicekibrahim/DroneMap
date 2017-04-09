@@ -50,9 +50,14 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 	}
 
 	//for angular to trust youtube url
-	$scope.getIframeSrc = function(src) {
-		return $sce.trustAsResourceUrl("https://www.youtube.com/embed/"
-			+ src);
+	$scope.getIframeSrc = function(src, argFrame) {
+		if(argFrame){
+			return $sce.trustAsResourceUrl("https://www.youtube.com/embed/"	+ src);
+		}
+		else{
+			return "https://www.youtube.com/watch?v=" + src;
+		}
+		
 	};
 	
 	$scope.view = new ol.View({
