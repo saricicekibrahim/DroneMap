@@ -62,8 +62,8 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 	
 	$scope.view = new ol.View({
 		center : ol.proj.transform([ 32.9, 39.9 ], 'EPSG:4326', 'EPSG:3857'),
-		zoom : 10,
-		rotation: Math.PI / 6
+		zoom : 10
+//		rotation: Math.PI / 6
 	});
 	
 	$scope.map = new ol.Map({
@@ -159,7 +159,6 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
     }
 	
 	$scope.map.on('click', function(evt) {
-		debugger;
 		var feature = $scope.map.forEachFeatureAtPixel(evt.pixel,
 			function(feature) {
 				return feature;
