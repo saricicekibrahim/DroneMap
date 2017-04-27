@@ -1,7 +1,7 @@
 # Drone Map  
 Developed for showing my drone videos on a responsive map.
 
-* Uses OpenLayers 3 & BootStrap & AngularJs. Tiles taken from maps.stamen.com  
+* Uses OpenLayers 3 & BootStrap & AngularJs. Tiles taken from [Stamen](http://maps.stamen.com)  
 * Takes data from [Google Fusion Tables](https://goo.gl/4HxA6I) & takes videos from [YouTube](https://goo.gl/5F5EkS).    
 * Filter on right panel appears on map & bbox changes appear on right panel dynamically.
 
