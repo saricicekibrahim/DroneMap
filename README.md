@@ -1,9 +1,13 @@
 # Drone Map  
-This is a responsive map using OpenLayers 3, BootStrap, AngularJs.  
-Takes data from Google Fusion Tables & videos from YouTube.  
-A working demo is [here](http://e-yazi.com/dronemap)  
-  
-Installation  
+Developed for showing my drone videos on a responsive map.
+
+Uses OpenLayers 3 & BootStrap & AngularJs.  
+Takes data from Google Fusion Tables & takes videos from YouTube.  
+Filter on right panel appears on map & bbox changes appears on right panel.
+
+A working demo is [here](http://dronemap.info)  
+ 
+If you would like to serve your own Youtube videos on a map
 clone https://github.com/saricicekibrahim/DroneMap.git  
-npm install  
+npm install
 bower install
