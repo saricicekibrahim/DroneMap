@@ -9,7 +9,7 @@ A working demo is [here](http://dronemap.info)
 
 If you would like to show your own Youtube videos on map    
 clone https://github.com/saricicekibrahim/DroneMap.git     
-npm install  
-bower install 
-chance Google Fusion Tables & Analytics id  
-and uglify if you like
+npm install   
+bower install   
+chance Google Fusion Tables & Analytics id   
+and uglify if you like   
