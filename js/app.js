@@ -1,12 +1,8 @@
 //uglifyjs app.js -c -m -o app.min.js
-var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$http', '$sce', function($scope, $http, $sce) {
+var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$http', function($scope, $http) {
 	var container = document.getElementById('popup');
 	var content = document.getElementById('popup-content');
 	var closer = document.getElementById('popup-closer');
-	app.config(function($sceDelegateProvider) {
-		$sceDelegateProvider.resourceUrlWhitelist([ 'self',
-			'https://www.youtube.com/**' ]);
-	});
 	
     $scope.videoFilter = {
             search: ''
@@ -20,21 +16,20 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 		}
 	}));
 	
-	$scope.filteredFusionData;
+	$scope.filteredMapData;
 	$scope.filterMap = function(){
 		setTimeout(function(){ 
 			$scope.features = [];
-			angular.forEach($scope.filteredFusionData, function(value, key) {
+			angular.forEach($scope.filteredMapData, function(value, key) {
 				$scope.features.push(new ol.Feature({
 					geometry : new ol.geom.Point(
-						ol.proj.transform($scope.getLatLonAsArray(value[1]), 'EPSG:4326','EPSG:3857')),
-					youtube_id:value[2],
-					descr:value[3]}));
+						ol.proj.transform($scope.getLatLonAsArray(value[0]), 'EPSG:4326','EPSG:3857')),
+					youtube_id:value[1],
+					descr:value[2]}));
 			});
 	    	$scope.videoMapSource.clear();
 	    	$scope.videoMapSource.addFeatures($scope.features);
 		}, 2000);
-		
 	}
 
 	closer.onclick = function() {
@@ -50,14 +45,8 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 	}
 
 	//for angular to trust youtube url
-	$scope.getIframeSrc = function(src, argFrame) {
-		if(argFrame){
-			return $sce.trustAsResourceUrl("https://www.youtube.com/embed/"	+ src);
-		}
-		else{
+	$scope.getIframeSrc = function(src) {
 			return "https://www.youtube.com/watch?v=" + src;
-		}
-		
 	};
 	
 	$scope.view = new ol.View({
@@ -88,22 +77,22 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 	$scope.videoLayer = null;
 	$scope.videoMapSource = null;
 	$scope.features = [];
-	$scope.fusionData = [];
+	$scope.mapData = [];
 	new ol.source.Vector({
 		features: null
 	});
-	var allFusionData = [];
+	var allMapData = [];
 	
-	$http.get("https://www.googleapis.com/fusiontables/v1/query?sql=SELECT * FROM 1MIt8HjHPRe4_rifTaAwpK72vJ6c-oJdoa5c8Ryd7&key=AIzaSyCrjxOUtz0PEtDh9tDn6sjzObkC9dqQ1oA")
+	$http.get("https://sheets.googleapis.com/v4/spreadsheets/1_2J3C_78i9GGbZNznGZD3OIzBaFGZFv1OBiGcCG5s1U/values/A1:D250?key=AIzaSyBalaFs-lUjr0cck_aGIqI4WQHcCYRZ2FE")
 	.then(function(response) {
-		$scope.fusionData = response.data.rows;
-		allFusionData = response.data.rows;
-		angular.forEach($scope.fusionData, function(value, key) {
+		$scope.mapData = response.data.values;
+		allMapData = response.data.values;
+		angular.forEach($scope.mapData, function(value, key) {
 			$scope.features.push(new ol.Feature({
 				geometry : new ol.geom.Point(
-					ol.proj.transform($scope.getLatLonAsArray(value[1]), 'EPSG:4326','EPSG:3857')),
-				youtube_id:value[2],
-				descr:value[3]}));
+					ol.proj.transform($scope.getLatLonAsArray(value[0]), 'EPSG:4326','EPSG:3857')),
+				youtube_id:value[1],
+				descr:value[2]}));
 		});
 
 		$scope.videoMapSource = new ol.source.Vector({
@@ -123,8 +112,6 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
 		$scope.map.getView().fit($scope.videoLayer.getSource().getExtent(), $scope.map.getSize());
 	});
 	
-	var element = document.getElementById('popup');
-
 	//used on zooming selected point
     function elastic(t) {
         return Math.pow(2, -10 * t) * Math.sin((t - 0.075) * (2 * Math.PI) / 0.3) + 1;
@@ -180,14 +167,14 @@ var app = angular.module('droneApp', []).controller('droneCtrl', ['$scope', '$ht
         var topRight = ol.proj.transform(ol.extent.getTopRight(extent),
             'EPSG:3857', 'EPSG:4326');
         
-        $scope.fusionData = [];
+        $scope.mapData = [];
     	
-		angular.forEach(allFusionData, function(value, key) {
-	    	var lonLat = $scope.getLatLonAsArray(value[1]);
+		angular.forEach(allMapData, function(value, key) {
+	    	var lonLat = $scope.getLatLonAsArray(value[0]);
 	    	if(lonLat[0] > bottomLeft[0] && lonLat[0] < topRight[0] &&
 	    			lonLat[1] > bottomLeft[1] && lonLat[1] < topRight[1])
 	    		{
-	    			$scope.fusionData.push(value);
+	    			$scope.mapData.push(value);
 	    		}
 		});
 		
